@@ -5,6 +5,8 @@ import { createConnection } from './database';
 import { router } from './routes';
 import swaggerFile from './swagger.json';
 
+import './shared/container';
+
 createConnection();
 
 const app = express();

@@ -8,6 +8,7 @@ const dataSource = new DataSource({
   password: 'postgrespass',
   database: 'rentx',
   migrations: ['./src/database/migrations/*.ts'],
+  entities: ['./src/modules/cars/entities/*.ts'],
 });
 
 const createConnection = (host = 'rentx_database'): Promise<DataSource> => dataSource.setOptions({ host }).initialize();
