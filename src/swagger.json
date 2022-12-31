@@ -18,19 +18,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
-                },
-                "example": {
-                  "name": "category name sample",
-                  "description": "category description sample"
-                }
+                "$ref": "#/definitions/categories:post"
               }
             }
           }
@@ -54,24 +42,157 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                  "$ref": "#/definitions/categories:get"
                 }
               }
             }
           }
         }
       }
+    },
+    "/categories/import": {
+      "post": {
+        "tags": ["Category"],
+        "summary": "Upload a new category",
+        "description": "Upload a new category",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/specifications": {
+      "post": {
+        "tags": ["Specification"],
+        "summary": "Create a specifications",
+        "description": "Create a new specifications",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/specifications:post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Specification already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Specification"],
+        "summary": "List all specifications",
+        "description": "List all specifications",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/specifications:get"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "categories:post": {
+      "type": "object",
+      "properties": {
+          "name": {
+          "type": "string"
+        },
+          "description": {
+         "type": "string"
+        }
+      },
+      "example": {
+        "name": "Hatch",
+        "description": "Cars with a tailgate"
+      }
+    },
+    "categories:get": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "example": [
+        {
+          "id": "6e8d0fbf-ed84-43bf-ac60-d0375fbd696a",
+          "name": "Hatch",
+          "description": "Cars with a tailgate",
+          "created_at": "2022-12-29T23:17:00.348Z"
+        }
+      ]
+    },
+    "specifications:post": {
+      "type": "object",
+      "properties": {
+          "name": {
+          "type": "string"
+        },
+          "description": {
+         "type": "string"
+        }
+      },
+      "example": {
+        "name": "Automatic Transmission",
+        "description": "Car with automatic transmission"
+      }
+    },
+    "specifications:get": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "example": [
+        {
+          "id": "9328b995-cc6c-4a9a-b941-47f6086e9125",
+          "name": "Automatic Transmission",
+          "description": "Car with automatic transmission",
+          "created_at": "2022-12-29T14:11:54.927Z"
+        }
+      ]
     }
   }
 }
